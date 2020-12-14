@@ -27,6 +27,15 @@ Route::prefix('section')->group(function() {
         Route::get('/', 'SectionController@show');
         Route::post('edit', 'SectionController@update');
         Route::post('delete', 'SectionController@delete');
+
+        Route::get('tasks', 'TaskController@index');
+
+        Route::prefix('task')->group(function() {
+            Route::post('/add', 'TaskController@store');
+            Route::get('/{task_id}', 'TaskController@show');
+            Route::post('{task_id}/edit', 'TaskController@update');
+            Route::post('{task_id}/delete', 'TaskController@delete');
+        });
     });
 
 });

@@ -10,11 +10,11 @@ class Task extends Model
 
     public function section()
     {
-        return $this->belongsTo('App\Model\Section', 'section_id', 'id');
+        return $this->belongsTo('App\Models\Section', 'section_id', 'id');
     }
 
     public function status()
     {
-        return $this->belongsTo('App\Model\TaskStatus', 'status_id', 'id');
+        return $this->belongsTo('App\Models\TaskStatus', 'status_id', 'id');
     }
 }
