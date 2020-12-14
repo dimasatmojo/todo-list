@@ -35,6 +35,9 @@ Route::prefix('section')->group(function() {
             Route::get('/{task_id}', 'TaskController@show');
             Route::post('{task_id}/edit', 'TaskController@update');
             Route::post('{task_id}/delete', 'TaskController@delete');
+
+            Route::get('/status/{status_id}', 'TaskController@filterStatus');
+            Route::post('{task_id}/undo', 'TaskController@undoStatus');
         });
     });
 

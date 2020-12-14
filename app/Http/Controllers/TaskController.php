@@ -68,4 +68,29 @@ class TaskController extends Controller
 
         return "Data deleted succesfully!";
     }
+
+    public function filterStatus($section_id, $status_id)
+    {
+        $tasks = Task::where('section_id', $section_id)->where('status_id', $status_id)->get();
+
+        $data = array();
+		foreach ($tasks as $key => $item) {
+            $data[$key]['section'] = $item->section->name;
+            $data[$key]['status'] = $item->status->name;
+            $data[$key]['created_at'] = Carbon::parse($item->created_at)->diffForHumans();
+        }
+
+        $data = collect($data);
+
+        return $data;
+    }
+
+    public function undoStatus(Request $request, $section_id, $task_id)
+    {
+        $task = Task::where('section_id', $section_id)->where('id', $task_id)->where('updated_at', '!=', NULL)->firstOrFail();
+        $task->status_id = $task->status_id == 1 ? 2 : 1;
+        $task->save();
+
+        return "Data status undo succesfully!";
+    }
 }
