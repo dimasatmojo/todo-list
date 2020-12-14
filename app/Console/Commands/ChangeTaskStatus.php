@@ -5,21 +5,21 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Task;
 
-class CreateTask extends Command
+class ChangeTaskStatus extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'task:add {task_name} {section_id} {status_id}';
+    protected $signature = 'task:update {task_id} {section_id} {status_id}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Add new task to DB';
+    protected $description = 'Update task status';
 
     /**
      * Create a new command instance.
@@ -38,12 +38,10 @@ class CreateTask extends Command
      */
     public function handle()
     {
-        $task = new Task;
-        $task->name = $this->argument('task_name');
-        $task->section_id = $this->argument('section_id');
+        $task = Task::where('section_id', $this->argument('section_id'))->where('id', $this->argument('task_id'))->firstOrFail();
         $task->status_id = $this->argument('status_id');
         $task->save();
 
-        print "Data added succesfully!";
+        print "Task status updated succesfully!";
     }
 }
