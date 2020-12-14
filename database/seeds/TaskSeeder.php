@@ -11,7 +11,7 @@ class TaskSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         for ($i=1; $i <= 10; $i++) { 
             DB::table('tasks')->insert([
